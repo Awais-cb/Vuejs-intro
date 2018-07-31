@@ -13,7 +13,7 @@
 			<input type="checkbox" class="toggle" v-model="user.contacted">
 			<!-- binding css class with element (bind class contacted if user.contacted is true)-->
 			<span :class="{contacted : user.contacted}">
-				{{user.name}} : {{user.email}}
+				{{user.name}} : {{user.email}} <button v-on:click="deleteUser(user)">x</button>
 			</span>
 		</li>
 		</ul>
@@ -29,41 +29,7 @@
 				// setting new user to empty object to add users into it afterwards
 				newUser:{},
 				users:[
-					{
-						name:'Jhon doe',
-						email:'jhondoe@gmail.com',
-						contacted:0
-					},
-					{
-						name:'Jeen doe',
-						email:'jeendoe@gmail.com',
-						contacted:0
-					},
-					{
-						name:'Sarah tom',
-						email:'sarahtom@gmail.com',
-						contacted:0
-					},
-					{
-						name:'Thomas nick',
-						email:'thomasnick@gmail.com',
-						contacted:0
-					},
-					{
-						name:'Aslam peepa',
-						email:'aslampeepa@gmail.com',
-						contacted:0
-					},
-					{
-						name:'Jeera malangi',
-						email:'jeeramalangi@gmail.com',
-						contacted:0
-					},
-					{
-						name:'Jazib aslam',
-						email:'jazibaslam@gmail.com',
-						contacted:0
-					},
+					
 				]
 			}
 		},
@@ -76,8 +42,20 @@
 					email:this.newUser.email,
 					contacted:0
 				});
+			},
+			deleteUser:function (user) {
+				this.users.splice(this.users.indexOf(user),1);
 			}
+		},
+		// created is one of the life cycle hooks which is available in vuejs "created" hook can be used to run code right after an instance is created (Templates and Virtual DOM have not yet been mounted or rendered yet.)
+		created:function (argument) {
+			// using 'http' resource
+			// https resource will return a promise which will be handles in 'then()'
+			this.$http.get('https://jsonplaceholder.typicode.com/users').then(function (response) {
+				this.users = response.data;
+			});
 		}
+
 	}
 </script>
 
