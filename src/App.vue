@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <!-- 'msg' is component property -->
     <!-- test component -->
+    <!-- 'msg' is component property -->
     <!-- <test msg="FooBar paj ja"/> -->
     <!-- users component -->
     <users/>
